@@ -144,11 +144,11 @@ def main(args):
             frame_no = frame_no +1
             im = cv2.flip(im, 0)
             out.write(im)
+        else:
+            break
     cap.release()
+    out.release()
     cv2.destroyAllWindows()
-    subprocess.call('ffmpeg -framerate 20 -i {}/file%02d.png -c:v libx264 -r 30 -pix_fmt yuv420p vid/out.mp4'
-                    .format(os.path.join(args.output_dir, 'vid')),
-                     shell=True)
 if __name__ == '__main__':
     workspace.GlobalInit(['caffe2', '--caffe2_log_level=0'])
     setup_logging(__name__)
