@@ -82,7 +82,8 @@ def parse_args():
 
 
 def main(args):
-    out = cv2.VideoWriter('output.avi', -1, 20.0, (640,480))
+    fourcc = cv2.cv.CV_FOURCC(*'DIVX')
+    out = cv2.VideoWriter('output_app.avi',fourcc, 20.0, (640,480))
     logger = logging.getLogger(__name__)
     merge_cfg_from_file(args.cfg)
     cfg.NUM_GPUS = 1
