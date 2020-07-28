@@ -82,6 +82,7 @@ def parse_args():
 
 
 def main(args):
+    out = cv2.VideoWriter('output.avi', fourcc, 20.0, (640,480))
     logger = logging.getLogger(__name__)
     merge_cfg_from_file(args.cfg)
     cfg.NUM_GPUS = 1
@@ -140,6 +141,7 @@ def main(args):
         )
         if ret == True:
             frame_no = frame_no +1
+            out.write(frame)
     cap.release()
     cv2.destroyAllWindows()
     subprocess.call('ffmpeg -framerate 20 -i {}/file%02d.png -c:v libx264 -r 30 -pix_fmt yuv420p vid/out.mp4'
