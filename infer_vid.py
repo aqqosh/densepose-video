@@ -143,7 +143,7 @@ def main(args):
         )
         if ret == True:
             frame_no = frame_no +1
-            out.write(frame)
+            out.write(ret)
     cap.release()
     cv2.destroyAllWindows()
     subprocess.call('ffmpeg -framerate 20 -i {}/file%02d.png -c:v libx264 -r 30 -pix_fmt yuv420p vid/out.mp4'
