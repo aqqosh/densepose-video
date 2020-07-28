@@ -82,7 +82,7 @@ def parse_args():
 
 
 def main(args):
-    fourcc = cv2.cv.CV_FOURCC(*'DIVX')
+    fourcc = cv2.VideoWriter_fourcc(*'XVID')
     out = cv2.VideoWriter('output_app.avi',fourcc, 20.0, (640,480))
     logger = logging.getLogger(__name__)
     merge_cfg_from_file(args.cfg)
