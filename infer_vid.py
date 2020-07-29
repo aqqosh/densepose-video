@@ -38,6 +38,7 @@ import detectron.utils.c2 as c2_utils
 import detectron.utils.vis as vis_utils
 
 from IPython.display import clear_output, Image
+from google.colab.patches import cv2_imshow
 import base64
 
 c2_utils.import_detectron_ops()
@@ -150,8 +151,9 @@ def main(args):
         )
         
         clear_output(wait=True)
-        img = arrayShow(im)
-        display(img)
+        #img = arrayShow(im)
+        #display(img)
+        cv2_imshow(im)
         
         if ret == True:
             frame_no = frame_no +1
