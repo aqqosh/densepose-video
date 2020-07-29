@@ -37,12 +37,14 @@ import detectron.datasets.dummy_datasets as dummy_datasets
 import detectron.utils.c2 as c2_utils
 import detectron.utils.vis as vis_utils
 
+from IPython.display import clear_output, Image
+import base64
+
 c2_utils.import_detectron_ops()
 
 # OpenCL may be enabled by default in OpenCV3; disable it because it's not
 # thread safe and causes unwanted GPU memory allocations.
 cv2.ocl.setUseOpenCL(False)
-
 
 def parse_args():
     parser = argparse.ArgumentParser(description='End-to-end inference')
@@ -80,6 +82,12 @@ def parse_args():
     return parser.parse_args()
 
 
+def arrayShow (imageArray):
+    ret, png = cv2.imencode('.png', imageArray)
+    encoded = base64.b64encode(png)
+    return Image(data=encoded.decode('ascii'))
+
+#video_capture = cv2.VideoCapture(VIDEO_SOURCE)
 
 def main(args):
     fourcc = cv2.VideoWriter_fourcc(*'XVID')
@@ -140,12 +148,21 @@ def main(args):
             thresh=0.7,
             kp_thresh=2
         )
+        
         if ret == True:
             frame_no = frame_no +1
             im = cv2.flip(im, 0)
             out.write(im)
+            clear_output(wait=True)
+            img = arrayShow(im)
+            display(img)
+
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+            
         else:
             break
+            
     cap.release()
     out.release()
     cv2.destroyAllWindows()
