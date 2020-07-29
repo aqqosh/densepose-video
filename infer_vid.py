@@ -149,19 +149,20 @@ def main(args):
             kp_thresh=2
         )
         
+        clear_output(wait=True)
+        img = arrayShow(im)
+        display(img)
+        
         if ret == True:
             frame_no = frame_no +1
             im = cv2.flip(im, 0)
             out.write(im)
-            clear_output(wait=True)
-            img = arrayShow(im)
-            display(img)
 
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
+        #if cv2.waitKey(1) & 0xFF == ord('q'):
+        #    break
             
-        else:
-            break
+        #else:
+        #    break
             
     cap.release()
     out.release()
